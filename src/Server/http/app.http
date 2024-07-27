@@ -1,0 +1,15 @@
+@hostname=localhost
+@port=5233
+@host={{hostname}}:{{port}}
+@JWT = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+###
+
+POST http://{{host}}/api/Files/Upload HTTP/1.1
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="Screenshot 2024-07-25 at 15-39-40 FirstLink.png"
+Content-Type: text/plain
+
+< "C:\Users\ngoc\Downloads\Screenshot 2024-07-25 at 15-39-40 FirstLink.png"
+--boundary--

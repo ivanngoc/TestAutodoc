@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ProjectGuid></ProjectGuid>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\refs\IziHardGames.Libs.AspNetCore.AsFileServer\IziHardGames.Libs.AspNetCore.AsFileServer.csproj" />
+    <ProjectReference Include="..\..\refs\Swagger\Swagger.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DAL.Contracts\DAL.Contracts.csproj" />
+    <ProjectReference Include="..\DAL.EFCore\DAL.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Swagger\" />
+  </ItemGroup>
+
+  <Target Name="PrintPaths" AfterTargets="Build">
+    <Message Text="BaseOutputPath: $(BaseOutputPath)" Importance="High" />
+    <Message Text="TargetPath: $(TargetPath)" Importance="High" />
+  </Target>
+</Project>

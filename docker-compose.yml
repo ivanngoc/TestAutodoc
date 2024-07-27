@@ -1,0 +1,52 @@
+services:
+  server:
+    image: myserver_image
+    container_name: server_container
+    build:
+     dockerfile: src/Server/Dockerfile
+     args:
+      progress: plain
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Development
+     - FILE_STORAGE_PATH=/var/TestAutodoc
+     - CONN_STRING_NAME=PostgresDocker
+    ports:
+     - 8092:8080
+    depends_on:
+      postgre_db:
+        condition: service_started
+    networks:
+     - autodoc
+
+  postgre_db:
+    image: postgres:16.2
+    container_name: postgre_containter
+    restart: unless-stopped
+    ports:
+      - "5434:5434"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    command: -p 5434
+    networks:
+     - autodoc
+
+  adminer:
+    image: adminer:4.8.0
+    restart: always
+    container_name: autodoc_adminer
+    ports:
+      - "8081:8080"
+    environment:
+        ADMINER_DB: adminer
+        ADMINER_DRIVER: pgsql
+        ADMINER_PASSWORD: adminer
+        ADMINER_SERVER: postgres
+        ADMINER_USERNAME: adminer
+        ADMINER_AUTOLOGIN: 1
+        ADMINER_NAME: Some Name
+    networks:
+    - autodoc
+
+networks:
+  autodoc:
