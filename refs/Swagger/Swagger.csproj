@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IziHardGames.Libs.ForSwagger</RootNamespace>
     <Company>IziHardGames</Company>
-    <ProjectGuid></ProjectGuid>
+    <ProjectGuid>5b126147-f81f-42bc-898f-a8416b4fdafa</ProjectGuid>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

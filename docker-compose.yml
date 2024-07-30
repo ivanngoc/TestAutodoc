@@ -8,12 +8,14 @@ services:
       progress: plain
     environment:
      - ASPNETCORE_ENVIRONMENT=Development
-     - FILE_STORAGE_PATH=/var/TestAutodoc
-     - CONN_STRING_NAME=PostgresDocker
+     - FILE_STORAGE_PATH=/home/app/TestAutodoc
+     - CONN_STRING_NAME=SqlServerDocker
     ports:
      - 8092:8080
     depends_on:
       postgre_db:
+        condition: service_started
+      sql_server_db:
         condition: service_started
     networks:
      - autodoc
@@ -28,6 +30,17 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     command: -p 5434
+    networks:
+     - autodoc
+
+  sql_server_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_container
+    environment:
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=yourStrong(!)Password
+    ports:
+     - "50533:1433" 
     networks:
      - autodoc
 

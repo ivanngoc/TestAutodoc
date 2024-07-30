@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IziHardGames.Libs.AspNetCore.AsFileServer</RootNamespace>
     <Company>IziHardGames</Company>
-    <ProjectGuid></ProjectGuid>
+    <ProjectGuid>9546cdeb-3b61-45b4-87b3-868eeb74c780</ProjectGuid>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

@@ -7,7 +7,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "FILE_STORAGE_PATH": "%TEMP%/TestAutodoc",
-        "CONN_STRING_NAME": "Postgres"
+        "CONN_STRING_NAME": "SqlServer"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5233"

@@ -17,15 +17,21 @@ namespace Server
             var builder = WebApplication.CreateBuilder(args);
 
             //Console.WriteLine(builder.Configuration.ToJson(Newtonsoft.Json.Formatting.Indented));
-            var name = Environment.GetEnvironmentVariable("CONN_STRING_NAME") ?? throw new NullReferenceException("Env Var CONN_STRING_NAME is not defined"); 
+            var name = Environment.GetEnvironmentVariable("CONN_STRING_NAME") ?? throw new NullReferenceException("Env Var CONN_STRING_NAME is not defined");
             var connstring = builder.Configuration.GetConnectionString(name);
             Console.WriteLine($"CONN_STRING: {connstring}");
             if (string.IsNullOrEmpty(connstring)) throw new NullReferenceException($"Connection string at appsettings.json is not defined. {Directory.GetCurrentDirectory()}");
+
             Config config = new Config()
             {
                 FileStoragePath = Environment.GetEnvironmentVariable(ENV_VAR_FILE_STORAGE_PATH) ?? throw new NullReferenceException($"Environemnt variable:{ENV_VAR_FILE_STORAGE_PATH} is not defined"),
                 ConnectionString = connstring,
             };
+
+            if (!Directory.Exists(config.FileStoragePath))
+            {
+                Directory.CreateDirectory(config.FileStoragePath);
+            }
 
             builder.Services.Configure<IISServerOptions>(options =>
             {
@@ -51,7 +57,10 @@ namespace Server
             builder.Services.AddSingleton<IConfig, Config>((x) => config);
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContextPool<IDb, TasksDbContext>(b => b.UseNpgsql(config.ConnectionString));
+            builder.Services.AddDbContextPool<IDb, TasksDbContext>(b =>
+             //b.UseNpgsql(config.ConnectionString)
+             b.UseSqlServer(config.ConnectionString)
+            );
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddIziSwagger(Assembly.GetExecutingAssembly());
 

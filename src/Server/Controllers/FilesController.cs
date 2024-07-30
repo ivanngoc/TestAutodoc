@@ -83,8 +83,9 @@ namespace Server.Controllers
 
             if (jDoc.RootElement.TryGetProperty(nameof(FileMeta.guid), out var jeGuid))
             {
-                meta = db.Metas.FirstOrDefault(x => x.ResourceId == Guid.Parse(jeGuid.GetRawText().Trim('"')));
-                if (meta is null) return NotFound();
+                var guid = Guid.Parse(jeGuid.GetRawText().Trim('"'));
+                meta = db.Metas.FirstOrDefault(x => x.ResourceId == guid);
+                if (meta is null) return NotFound($"Meta with ResourceId:{guid} is not exists");
             }
 
             if (jDoc.RootElement.TryGetProperty(nameof(FileMeta.length), out var jeLength))
